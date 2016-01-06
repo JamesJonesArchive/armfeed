@@ -1,0 +1,37 @@
+apply plugin: "groovy"
+apply plugin: "application"
+mainClassName = 'edu.usf.cims.ArmFeed'
+
+sourceCompatibility = 1.7
+version = '1.0.1'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.codehaus.groovy:groovy-all:2.4.3"
+    compile "commons-cli:commons-cli:1.2"
+//    compile 'mysql:mysql-connector-java:5.1.30'
+
+    compile 'ch.qos.logback:logback-core:1.1.2'
+    compile 'ch.qos.logback:logback-classic:1.1.2'
+    compile 'commons-codec:commons-codec:1.10'
+
+    testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
+}
+
+startScripts {
+  classpath = files('$APP_HOME/lib/*')
+
+  doLast {
+    def scriptFile = file "${outputDir}/${applicationName}"
+    scriptFile.text = scriptFile.text.replace('CLASSPATH=$APP_HOME/lib/*', 'CLASSPATH=$APP_HOME:$APP_HOME/lib/*')
+  }
+}
+jar {
+manifest {
+    attributes 'Main-Class': 'edu.usf.cims.ArmFeed'
+    attributes 'Class-Path': configurations.compile.collect { it.getName() }.join(' ')
+  }
+}

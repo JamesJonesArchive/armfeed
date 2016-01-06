@@ -1,0 +1,22 @@
+# IDE support files
+/.classpath
+/.launch
+/.project
+/.settings
+/*.launch
+/*.tmproj
+/ivy*
+/eclipse
+
+# gradle artifacts
+/.gradle
+/build
+*/build
+
+# git artifacts
+# except we want the project to remember these
+#.gitignore
+
+# mac OSX artifacts
+**/.DS_STORE
+**/.DS_Store
